@@ -1,11 +1,11 @@
 {
     "manifest_version": 3,
     "default_locale": "en",
-    
+
     "name": "__MSG_extension_name__",
     "description": "__MSG_extension_description__",
     "version": "1.0",
-    
+
     "icons": {
         "48": "images/icon-48.png",
         "96": "images/icon-96.png",
@@ -13,29 +13,35 @@
         "256": "images/icon-256.png",
         "512": "images/icon-512.png"
     },
-    
+
     "background": {
-        "scripts": [ "background.js" ],
-        "type": "module"
+        "scripts": [ "browser-polyfill.js", "background.js" ],
+        "type": "module",
+        "persistent": false
     },
-    
+
     "content_scripts": [{
-        "js": [ "content.js" ],
+        "js": [ "browser-polyfill.js", "content.js" ],
         "matches": [ "<all_urls>" ]
     }],
-    
+
     "action": {
         "default_popup": "popup.html",
         "default_icon": "images/toolbar-icon.svg"
     },
-    
+
     "permissions": [
         "<all_urls>",
         "activeTab",
         "webRequest"
     ],
-    
+
     "host_permissions": [
         "https://api.anthropic.com/*"
-    ]
+    ],
+
+    "web_accessible_resources": [{
+        "resources": [ "browser-polyfill.js" ],
+        "matches": [ "<all_urls>" ]
+    }]
 }
